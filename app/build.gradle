@@ -1,0 +1,86 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.ansargroup"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField('String', "BaseUrl", BaseUrl)
+        }
+        release {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField('String', "BaseUrl", BaseUrl)
+        }
+
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(":MultilevelTreeLibrary")
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation "com.google.android.material:material:$versions.material"
+    implementation "androidx.constraintlayout:constraintlayout:$versions.constraint"
+    implementation "androidx.recyclerview:recyclerview:$versions.recyclerview"
+
+    implementation "androidx.navigation:navigation-fragment:$versions.navigation"
+    implementation "androidx.navigation:navigation-ui:$versions.navigation"
+
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    // Dependency Injection
+    testImplementation "org.koin:koin-test:$versions.koin"
+    implementation "org.koin:koin-android:$versions.koin"
+    implementation "org.koin:koin-androidx-scope:$versions.koin"
+    implementation "org.koin:koin-androidx-viewmodel:$versions.koin"
+
+    // network layer
+    implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${versions.okhttp}"
+    implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
+    implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
+
+    // coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutine}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutine}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.coroutineViewModelScope}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutine"
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+}
